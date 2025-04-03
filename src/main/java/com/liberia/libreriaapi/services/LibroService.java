@@ -11,6 +11,7 @@ import com.liberia.libreriaapi.entities.Editorial;
 import com.liberia.libreriaapi.entities.Libro;
 import com.liberia.libreriaapi.models.LibroCreateDTO;
 import com.liberia.libreriaapi.models.LibroListActiveDTO;
+import com.liberia.libreriaapi.models.LibroShowDTO;
 import com.liberia.libreriaapi.repositories.LibroRepository;
 
 @Service
@@ -40,6 +41,12 @@ public class LibroService {
         libroNvo.setEditorial(editorial);
 
         libroRepository.save(libroNvo);
+    }
+
+    public LibroShowDTO findOneDTO(Long id) throws Exception {
+        return libroRepository.findById(id)
+                .map((Libro l) -> new LibroShowDTO(l.getIdLibro(), l.getTitulo(), l.getEjemplares()))
+                .orElseThrow(() -> new Exception("¡Libro no encontrado!"));
     }
 
     public List<LibroListActiveDTO> findOnlyActive() {

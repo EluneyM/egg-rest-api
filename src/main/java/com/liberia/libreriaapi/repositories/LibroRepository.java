@@ -12,7 +12,7 @@ import com.liberia.libreriaapi.models.LibroListActiveDTO;
 @Repository
 public interface LibroRepository extends JpaRepository<Libro, Long> {
 
-    @Query("SELECT new com.liberia.libreriaapi.models.LibroListActiveDTO(l.titulo, l.ejemplares) " +
+    @Query("SELECT new com.liberia.libreriaapi.models.LibroListActiveDTO(l.idLibro, l.titulo, l.ejemplares) " +
             "FROM Libro l WHERE l.libroActivo = true")
     public List<LibroListActiveDTO> findOnlyActive();
 }
