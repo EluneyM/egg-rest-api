@@ -9,9 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.liberia.libreriaapi.entities.Autor;
 import com.liberia.libreriaapi.models.AutorCreateDTO;
+import com.liberia.libreriaapi.models.AutorShowDTO;
 import com.liberia.libreriaapi.models.AutorUpdateDTO;
 import com.liberia.libreriaapi.repositories.AutorRepository;
-
 
 @Service
 public class AutorService {
@@ -41,6 +41,15 @@ public class AutorService {
         return autorRepository
                 .findById(id)
                 .orElseThrow(() -> new Exception("¡Autor no encontrado!"));
+    }
+
+    @Transactional(readOnly = true)
+    public AutorShowDTO findOneDTO(UUID id) throws Exception {
+        Autor a = autorRepository
+                .findById(id)
+                .orElseThrow(() -> new Exception("¡Autor no encontrado!"));
+
+        return new AutorShowDTO(a.getIdAutor(), a.getNombreAutor());
     }
 
     @Transactional(readOnly = true)

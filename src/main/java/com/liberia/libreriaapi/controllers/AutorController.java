@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.liberia.libreriaapi.entities.Autor;
 import com.liberia.libreriaapi.models.AutorCreateDTO;
+import com.liberia.libreriaapi.models.AutorShowDTO;
 import com.liberia.libreriaapi.models.AutorUpdateDTO;
 import com.liberia.libreriaapi.services.AutorService;
 
@@ -47,6 +48,17 @@ public class AutorController {
     public ResponseEntity<List<Autor>> listAll() {
         try {
             return new ResponseEntity<>(autorService.findAll(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AutorShowDTO> findOne(@PathVariable String id) {
+        try {
+            System.out.println(id);
+            UUID uuid = UUID.fromString(id);
+            return new ResponseEntity<>(autorService.findOneDTO(uuid), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
