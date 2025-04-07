@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.liberia.libreriaapi.entities.Editorial;
 import com.liberia.libreriaapi.models.EditorialCreateDTO;
+import com.liberia.libreriaapi.models.EditorialUpdateDTO;
 import com.liberia.libreriaapi.repositories.EditorialRepository;
 
 @Service
@@ -26,6 +27,14 @@ public class EditorialService {
         editorial.setEditorialActiva(true);
 
         editorialRepository.save(editorial);
+    }
+
+    @Transactional
+    public void update(UUID id, EditorialUpdateDTO editorialUpdateDTO) throws Exception {
+        Editorial e = findOne(id);
+        e.setNombreEditorial(editorialUpdateDTO.getNombreEditorial());
+
+        editorialRepository.save(e);
     }
 
     @Transactional(readOnly = true)
