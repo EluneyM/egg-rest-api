@@ -34,6 +34,6 @@ public class Libro {
     private Autor autor;
 
     @NotNull(message = "La Editorial no puede ser nula")
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Editorial editorial;
 }

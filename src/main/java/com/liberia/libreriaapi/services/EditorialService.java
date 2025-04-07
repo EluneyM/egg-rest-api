@@ -52,7 +52,6 @@ public class EditorialService {
     @Transactional
     public void delete(UUID id) throws Exception {
         Editorial e = findOne(id);
-        e.setEditorialActiva(false);
-        editorialRepository.save(e);;
+        editorialRepository.delete(e);
     }
 }
