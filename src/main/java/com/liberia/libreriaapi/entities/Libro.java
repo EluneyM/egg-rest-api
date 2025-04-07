@@ -1,6 +1,8 @@
 package com.liberia.libreriaapi.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +34,6 @@ public class Libro {
     private Autor autor;
 
     @NotNull(message = "La Editorial no puede ser nula")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private Editorial editorial;
 }
