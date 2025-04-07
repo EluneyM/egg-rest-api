@@ -48,4 +48,11 @@ public class EditorialService {
                 .findById(id)
                 .orElseThrow(() -> new Exception("¡Editorial no encontrada!"));
     }
+
+    @Transactional
+    public void delete(UUID id) throws Exception {
+        Editorial e = findOne(id);
+        e.setEditorialActiva(false);
+        editorialRepository.save(e);;
+    }
 }
